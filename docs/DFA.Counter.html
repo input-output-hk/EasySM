@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>DFA.Counter</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="103" class="Comment">-- counter contract (DFA version)</a>
+
+
+<a id="139" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="241" class="Symbol">{-#</a> <a id="245" class="Keyword">OPTIONS</a> <a id="253" class="Pragma">--guardedness</a> <a id="267" class="Pragma">--sized-types</a> <a id="281" class="Symbol">#-}</a>
+
+<a id="286" class="Keyword">module</a> <a id="293" href="DFA.Counter.html" class="Module">DFA.Counter</a> <a id="305" class="Keyword">where</a>
+
+<a id="312" class="Keyword">open</a> <a id="317" class="Keyword">import</a> <a id="324" href="DFA.html" class="Module">DFA</a> <a id="328" class="Keyword">public</a>
+
+
+<a id="337" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="439" class="Keyword">module</a> <a id="Counter-DFA"></a><a id="446" href="DFA.Counter.html#446" class="Module">Counter-DFA</a> <a id="458" class="Keyword">where</a>
+  <a id="466" class="Keyword">data</a> <a id="Counter-DFA.State"></a><a id="471" href="DFA.Counter.html#471" class="Datatype">State</a> <a id="477" class="Symbol">:</a> <a id="479" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="483" class="Keyword">where</a>
+    <a id="Counter-DFA.State.root"></a><a id="493" href="DFA.Counter.html#493" class="InductiveConstructor">root</a> <a id="498" class="Symbol">:</a> <a id="500" href="DFA.Counter.html#471" class="Datatype">State</a>
+
+  <a id="Counter-DFA.initialState"></a><a id="509" href="DFA.Counter.html#509" class="Function">initialState</a> <a id="522" class="Symbol">:</a> <a id="524" href="DFA.Counter.html#471" class="Datatype">State</a>
+  <a id="532" href="DFA.Counter.html#509" class="Function">initialState</a> <a id="545" class="Symbol">=</a> <a id="547" href="DFA.Counter.html#493" class="InductiveConstructor">root</a>
+
+  <a id="555" class="Keyword">data</a> <a id="Counter-DFA.Label"></a><a id="560" href="DFA.Counter.html#560" class="Datatype">Label</a> <a id="566" class="Symbol">:</a> <a id="568" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="572" class="Keyword">where</a>
+    <a id="Counter-DFA.Label.increment"></a><a id="582" href="DFA.Counter.html#582" class="InductiveConstructor">increment</a> <a id="592" class="Symbol">:</a> <a id="594" href="DFA.Counter.html#560" class="Datatype">Label</a>
+
+  <a id="603" class="Keyword">data</a> <a id="Counter-DFA._⇒⟨_⟩_"></a><a id="608" href="DFA.Counter.html#608" class="Datatype Operator">_⇒⟨_⟩_</a> <a id="615" class="Symbol">:</a> <a id="617" href="DFA.Counter.html#471" class="Datatype">State</a> <a id="623" class="Symbol">→</a> <a id="625" href="DFA.Counter.html#560" class="Datatype">Label</a> <a id="631" class="Symbol">→</a> <a id="633" href="DFA.Counter.html#471" class="Datatype">State</a> <a id="639" class="Symbol">→</a> <a id="641" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="645" class="Keyword">where</a>
+    <a id="655" class="Keyword">instance</a>
+      <a id="Counter-DFA._⇒⟨_⟩_.increment"></a><a id="670" href="DFA.Counter.html#670" class="InductiveConstructor">increment</a> <a id="680" class="Symbol">:</a> <a id="682" href="DFA.Counter.html#493" class="InductiveConstructor">root</a> <a id="687" href="DFA.Counter.html#608" class="Datatype Operator">⇒⟨</a> <a id="690" href="DFA.Counter.html#582" class="InductiveConstructor">increment</a> <a id="700" href="DFA.Counter.html#608" class="Datatype Operator">⟩</a> <a id="702" href="DFA.Counter.html#493" class="InductiveConstructor">root</a>
+
+  <a id="710" class="Comment">-- transition : State → Label → Maybe State</a>
+  <a id="756" class="Comment">-- transition root increment = just root</a>
+  <a id="799" class="Keyword">unquoteDecl</a> <a id="Counter-DFA.transition"></a><a id="811" href="DFA.Counter.html#811" class="Function">transition</a> <a id="822" class="Symbol">=</a> <a id="824" href="DFA.html#4338" class="Function">DFAThings.deriveTransitionFun</a> <a id="854" href="DFA.Counter.html#811" class="Function">transition</a> <a id="865" class="Symbol">(</a><a id="866" class="Keyword">quote</a> <a id="872" href="DFA.Counter.html#608" class="Datatype Operator">_⇒⟨_⟩_</a><a id="878" class="Symbol">)</a>
+
+  <a id="Counter-DFA.correctness"></a><a id="883" href="DFA.Counter.html#883" class="Function">correctness</a> <a id="895" class="Symbol">:</a> <a id="897" class="Symbol">∀</a> <a id="899" href="DFA.Counter.html#899" class="Bound">q</a> <a id="901" href="DFA.Counter.html#901" class="Bound">l</a> <a id="903" href="DFA.Counter.html#903" class="Bound">q′</a> <a id="906" class="Symbol">→</a> <a id="908" href="DFA.Counter.html#899" class="Bound">q</a> <a id="910" href="DFA.Counter.html#608" class="Datatype Operator">⇒⟨</a> <a id="913" href="DFA.Counter.html#901" class="Bound">l</a> <a id="915" href="DFA.Counter.html#608" class="Datatype Operator">⟩</a> <a id="917" href="DFA.Counter.html#903" class="Bound">q′</a> <a id="920" href="Prelude.html#3585" class="Function Operator">⇔</a> <a id="922" href="DFA.Counter.html#811" class="Function">transition</a> <a id="933" href="DFA.Counter.html#899" class="Bound">q</a> <a id="935" href="DFA.Counter.html#901" class="Bound">l</a> <a id="937" href="Agda.Builtin.Equality.html#150" class="Datatype Operator">≡</a> <a id="939" href="Agda.Builtin.Maybe.html#173" class="InductiveConstructor">just</a> <a id="944" href="DFA.Counter.html#903" class="Bound">q′</a>
+  <a id="949" href="DFA.Counter.html#883" class="Function">correctness</a> <a id="961" href="DFA.Counter.html#493" class="InductiveConstructor">root</a> <a id="966" href="DFA.Counter.html#582" class="InductiveConstructor">increment</a> <a id="976" href="DFA.Counter.html#493" class="InductiveConstructor">root</a> <a id="981" class="Symbol">=</a> <a id="983" class="Symbol">(λ</a> <a id="986" class="Symbol">{</a> <a id="988" href="DFA.Counter.html#670" class="InductiveConstructor">increment</a> <a id="998" class="Symbol">→</a> <a id="1000" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> <a id="1005" class="Symbol">})</a> <a id="1008" href="Agda.Builtin.Sigma.html#235" class="InductiveConstructor Operator">,</a> <a id="1010" class="Symbol">λ</a> <a id="1012" class="Symbol">{</a> <a id="1014" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> <a id="1019" class="Symbol">→</a> <a id="1021" href="DFA.Counter.html#670" class="InductiveConstructor">increment</a> <a id="1031" class="Symbol">}</a>
+
+  <a id="Counter-DFA.dfa"></a><a id="1036" href="DFA.Counter.html#1036" class="Function">dfa</a> <a id="1040" class="Symbol">:</a> <a id="1042" href="DFA.html#466" class="Record">DFA</a>
+  <a id="1048" href="DFA.Counter.html#1036" class="Function">dfa</a> <a id="1052" class="Symbol">=</a> <a id="1054" href="DFA.html#525" class="InductiveConstructor">mkDFA</a> <a id="1060" href="DFA.Counter.html#509" class="Function">initialState</a> <a id="1073" href="DFA.Counter.html#608" class="Datatype Operator">_⇒⟨_⟩_</a> <a id="1080" href="DFA.Counter.html#811" class="Function">transition</a> <a id="1091" href="DFA.Counter.html#883" class="Function">correctness</a>
+
+  <a id="1106" class="Comment">-- textual user interface for this DFA</a>
+  <a id="1147" class="Keyword">module</a> <a id="1154" href="DFA.Counter.html#1154" class="Module">_</a> <a id="1156" class="Keyword">where</a>
+<a id="1162" class="Comment">--     showDot : String</a>
+<a id="1186" class="Comment">--     showDot = &quot;digraph {</a>
+<a id="1214" class="Comment">--   node [shape = oval];</a>
+<a id="1240" class="Comment">--   rankdir = LR;</a>
+<a id="1259" class="Comment">--   root -&gt; root [ label = \&quot;increment\&quot; ];</a>
+<a id="1304" class="Comment">-- }</a>
+<a id="1309" class="Comment">-- &quot;</a>
+    <a id="1318" class="Keyword">unquoteDecl</a> <a id="1330" href="DFA.Counter.html#1330" class="Function">showDot</a> <a id="1338" class="Symbol">=</a> <a id="1340" href="DFA.html#2960" class="Function">DFAThings.deriveShowDotFun</a> <a id="1367" href="DFA.Counter.html#1330" class="Function">showDot</a> <a id="1375" class="Symbol">(</a><a id="1376" class="Keyword">quote</a> <a id="1382" href="DFA.Counter.html#608" class="Datatype Operator">_⇒⟨_⟩_</a><a id="1388" class="Symbol">)</a>
+
+    <a id="1395" class="Comment">-- showState : State → String</a>
+    <a id="1429" class="Comment">-- showState root = &quot;root&quot;</a>
+    <a id="1460" class="Keyword">unquoteDecl</a> <a id="1472" href="DFA.Counter.html#1472" class="Function">showState</a> <a id="1482" class="Symbol">=</a> <a id="1484" href="Prelude.html#9116" class="Function">MetaThings.deriveShowFun</a> <a id="1509" href="DFA.Counter.html#1472" class="Function">showState</a> <a id="1519" class="Symbol">(</a><a id="1520" class="Keyword">quote</a> <a id="1526" href="DFA.Counter.html#471" class="Datatype">State</a><a id="1531" class="Symbol">)</a>
+
+    <a id="1538" class="Comment">-- showLabel : Label → String</a>
+    <a id="1572" class="Comment">-- showLabel increment = &quot;increment&quot;</a>
+    <a id="1613" class="Keyword">unquoteDecl</a> <a id="1625" href="DFA.Counter.html#1625" class="Function">showLabel</a> <a id="1635" class="Symbol">=</a> <a id="1637" href="Prelude.html#9116" class="Function">MetaThings.deriveShowFun</a> <a id="1662" href="DFA.Counter.html#1625" class="Function">showLabel</a> <a id="1672" class="Symbol">(</a><a id="1673" class="Keyword">quote</a> <a id="1679" href="DFA.Counter.html#560" class="Datatype">Label</a><a id="1684" class="Symbol">)</a>
+
+    <a id="1691" class="Keyword">data</a> <a id="1696" href="DFA.Counter.html#1696" class="Datatype">LabelParserErr</a> <a id="1711" class="Symbol">:</a> <a id="1713" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="1717" class="Keyword">where</a>
+      <a id="1729" href="DFA.Counter.html#1729" class="InductiveConstructor">notLabel</a> <a id="1738" class="Symbol">:</a> <a id="1740" href="Parser.html#475" class="Datatype">Term</a> <a id="1745" class="Symbol">→</a> <a id="1747" href="DFA.Counter.html#1696" class="Datatype">LabelParserErr</a>
+
+    <a id="1767" href="DFA.Counter.html#1767" class="Function">showLabelParserErr</a> <a id="1786" class="Symbol">:</a> <a id="1788" href="DFA.Counter.html#1696" class="Datatype">LabelParserErr</a> <a id="1803" class="Symbol">→</a> <a id="1805" href="Agda.Builtin.String.html#335" class="Postulate">String</a>
+    <a id="1816" href="DFA.Counter.html#1767" class="Function">showLabelParserErr</a> <a id="1835" class="Symbol">(</a><a id="1836" href="DFA.Counter.html#1729" class="InductiveConstructor">notLabel</a> <a id="1845" href="DFA.Counter.html#1845" class="Bound">tm</a><a id="1847" class="Symbol">)</a> <a id="1849" class="Symbol">=</a> <a id="1851" class="String">&quot;invalid label &#39;&quot;</a> <a id="1869" href="Prelude.html#1871" class="Primitive Operator">++</a> <a id="1872" href="Parser.html#557" class="Function">showTerm</a> <a id="1881" href="DFA.Counter.html#1845" class="Bound">tm</a> <a id="1884" href="Prelude.html#1871" class="Primitive Operator">++</a> <a id="1887" class="String">&quot;&#39;&quot;</a>
+
+    <a id="1896" href="DFA.Counter.html#1896" class="Function">LabelParser</a> <a id="1908" class="Symbol">:</a> <a id="1910" href="Agda.Primitive.html#388" class="Primitive">Set</a>
+    <a id="1918" href="DFA.Counter.html#1896" class="Function">LabelParser</a> <a id="1930" class="Symbol">=</a> <a id="1932" href="Machine.html#818" class="Record">∞Machine</a> <a id="1941" href="Parser.html#475" class="Datatype">Term</a> <a id="1946" class="Symbol">(</a><a id="1947" href="Data.Sum.Base.html#625" class="Datatype">Either</a> <a id="1954" href="DFA.Counter.html#1696" class="Datatype">LabelParserErr</a> <a id="1969" href="DFA.Counter.html#560" class="Datatype">Label</a><a id="1974" class="Symbol">)</a>
+
+    <a id="1981" href="DFA.Counter.html#1981" class="Function">awaitLabel</a> <a id="1992" class="Symbol">:</a> <a id="1994" href="DFA.Counter.html#1896" class="Function">LabelParser</a>
+    <a id="2010" href="DFA.Counter.html#1981" class="Function">awaitLabel</a> <a id="2021" class="Symbol">.</a><a id="2022" href="Machine.html#915" class="Field">on</a> <a id="2025" class="Symbol">(</a><a id="2026" href="Parser.html#496" class="InductiveConstructor">atom</a> <a id="2031" class="String">&quot;increment&quot;</a><a id="2042" class="Symbol">)</a> <a id="2044" class="Symbol">=</a> <a id="2046" href="Prelude.html#4310" class="InductiveConstructor">ok</a> <a id="2049" href="DFA.Counter.html#582" class="InductiveConstructor">increment</a> <a id="2059" href="Agda.Builtin.Sigma.html#235" class="InductiveConstructor Operator">,</a> <a id="2061" href="Agda.Builtin.Maybe.html#173" class="InductiveConstructor">just</a> <a id="2066" href="DFA.Counter.html#1981" class="Function">awaitLabel</a>
+    <a id="2081" href="DFA.Counter.html#1981" class="CatchallClause Function">awaitLabel</a><a id="2091" class="CatchallClause"> </a><a id="2092" class="CatchallClause Symbol">.</a><a id="2093" href="Machine.html#915" class="CatchallClause Field">on</a><a id="2095" class="CatchallClause"> </a><a id="2096" href="DFA.Counter.html#2096" class="CatchallClause Bound">tm</a>                 <a id="2115" class="Symbol">=</a> <a id="2117" href="Prelude.html#4286" class="InductiveConstructor">fail</a> <a id="2122" class="Symbol">(</a><a id="2123" href="DFA.Counter.html#1729" class="InductiveConstructor">notLabel</a> <a id="2132" href="DFA.Counter.html#2096" class="Bound">tm</a><a id="2134" class="Symbol">)</a> <a id="2136" href="Agda.Builtin.Sigma.html#235" class="InductiveConstructor Operator">,</a> <a id="2138" href="Agda.Builtin.Maybe.html#173" class="InductiveConstructor">just</a> <a id="2143" href="DFA.Counter.html#1981" class="Function">awaitLabel</a>
+
+    <a id="2159" href="DFA.Counter.html#2159" class="Function">tui</a> <a id="2163" class="Symbol">:</a> <a id="2165" href="DFA.html#1139" class="Record">TUI-DFA</a>
+    <a id="2177" href="DFA.Counter.html#2159" class="Function">tui</a> <a id="2181" class="Symbol">=</a> <a id="2183" href="DFA.html#1208" class="InductiveConstructor">mkTUI-DFA</a> <a id="2193" href="DFA.Counter.html#1036" class="Function">dfa</a> <a id="2197" href="DFA.Counter.html#1330" class="Function">showDot</a> <a id="2205" href="DFA.Counter.html#1472" class="Function">showState</a> <a id="2215" href="DFA.Counter.html#1625" class="Function">showLabel</a> <a id="2225" href="DFA.Counter.html#1767" class="Function">showLabelParserErr</a> <a id="2244" href="DFA.Counter.html#1981" class="Function">awaitLabel</a>
+
+
+<a id="2257" class="Comment">----------------------------------------------------------------------------------------------------</a>
+</pre></body></html>

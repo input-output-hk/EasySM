@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>index</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="103" class="Comment">-- TODO: licensing; portions based on my work licensed as CC-BY-SA</a>
+
+<a id="171" class="Comment">-- TODO: ensure DFA states and labels are finite</a>
+
+<a id="221" class="Comment">-- TODO: abstract Value to allow using integers in Counter-DFA; state and prove invariant in</a>
+<a id="314" class="Comment">--   Counter-ADFA</a>
+
+<a id="333" class="Comment">-- TODO: finish auction example</a>
+
+<a id="366" class="Comment">-- TODO: ensure level polymorphism actually works as intended, including in macros</a>
+
+<a id="450" class="Comment">-- TODO: clean up term parser</a>
+
+<a id="481" class="Comment">-- TODO: redefine atom to ensure string is non-empty</a>
+
+<a id="535" class="Comment">-- TODO: define weak bisimilarity of machines</a>
+
+<a id="582" class="Comment">-- TODO: use trailed colist to define corun variant that also returns final machine</a>
+
+<a id="667" class="Comment">-- TODO: StdReflection should re-export Pattern</a>
+
+<a id="716" class="Comment">-- TODO: Data.String.Literals should re-export IsString and fromString, and declare isString as</a>
+<a id="812" class="Comment">--   instance; perhaps it should even be moved to Agda.Builtin.FromString; same with other literals</a>
+
+<a id="913" class="Comment">-- TODO: why does StdIO use polymorphic unit?</a>
+
+<a id="960" class="Comment">-- TODO: why is StdIO._&gt;&gt;=_ not synonymous with StdIO.bind?</a>
+
+<a id="1021" class="Comment">-- TODO: termination checker fails when using StdIO._&gt;&gt;=_ and do-notation in all three variants</a>
+<a id="1117" class="Comment">--   of sequence for colists; stdlib authors seem to be semi-aware of this, because e.g.</a>
+<a id="1206" class="Comment">--   StdIO.Colist.sequence is not written using StdIO._&gt;&gt;=_, but inlines its definition</a>
+
+<a id="1295" class="Comment">-- TODO: according to Andreas Abel (personal communication, 2025), Codata.Sized.Colist</a>
+<a id="1382" class="Comment">--   is not safe to use, because it is defined incorrectly, using Codata.Sized.Thunk</a>
+
+<a id="1468" class="Comment">-- TODO: forgetting to import Relation.Nullary should result in better error message</a>
+
+<a id="1554" class="Comment">-- TODO: perhaps Agda.Builtin.Size.∞ should be renamed to Sizeω</a>
+
+
+<a id="1620" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="1722" class="Symbol">{-#</a> <a id="1726" class="Keyword">OPTIONS</a> <a id="1734" class="Pragma">--guardedness</a> <a id="1748" class="Pragma">--sized-types</a> <a id="1762" class="Symbol">#-}</a>
+
+<a id="1767" class="Keyword">module</a> <a id="1774" href="index.html" class="Module">index</a> <a id="1780" class="Keyword">where</a>
+
+<a id="1787" class="Keyword">import</a> <a id="1794" href="Prelude.html" class="Module">Prelude</a>
+
+<a id="1803" class="Keyword">import</a> <a id="1810" href="Machine.html" class="Module">Machine</a>
+<a id="1818" class="Keyword">import</a> <a id="1825" href="Lexer.html" class="Module">Lexer</a>
+<a id="1831" class="Keyword">import</a> <a id="1838" href="Parser.html" class="Module">Parser</a>
+
+<a id="1846" class="Keyword">import</a> <a id="1853" href="DFA.html" class="Module">DFA</a>
+<a id="1857" class="Keyword">import</a> <a id="1864" href="DFA.Counter.html" class="Module">DFA.Counter</a>
+<a id="1876" class="Keyword">import</a> <a id="1883" href="DFA.Multisig.html" class="Module">DFA.Multisig</a>
+<a id="1896" class="Keyword">import</a> <a id="1903" href="DFA.Auction.html" class="Module">DFA.Auction</a>
+<a id="1915" class="Keyword">import</a> <a id="1922" href="IODA.html" class="Module">IODA</a>
+<a id="1927" class="Keyword">import</a> <a id="1934" href="IODFA.html" class="Module">IODFA</a>
+<a id="1940" class="Keyword">import</a> <a id="1947" href="ADFA.html" class="Module">ADFA</a>
+<a id="1952" class="Keyword">import</a> <a id="1959" href="ADFA.Counter.html" class="Module">ADFA.Counter</a>
+<a id="1972" class="Keyword">import</a> <a id="1979" href="ADFA.Multisig.html" class="Module">ADFA.Multisig</a>
+<a id="1993" class="Keyword">import</a> <a id="2000" href="SADFA.html" class="Module">SADFA</a>
+<a id="2006" class="Keyword">import</a> <a id="2013" href="SADFA.Multisig.html" class="Module">SADFA.Multisig</a>
+<a id="2028" class="Keyword">import</a> <a id="2035" href="SADFA.Auction-V1.html" class="Module">SADFA.Auction-V1</a>
+<a id="2052" class="Keyword">import</a> <a id="2059" href="SADFA.Auction-V2.html" class="Module">SADFA.Auction-V2</a>
+
+<a id="2077" class="Keyword">import</a> <a id="2084" href="Main.html" class="Module">Main</a>
+
+
+<a id="2091" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="2193" class="Keyword">import</a> <a id="2200" href="tmp.Colist.html" class="Module">tmp.Colist</a>
+
+<a id="2212" class="Keyword">import</a> <a id="2219" href="tmp.ADA.html" class="Module">tmp.ADA</a>
+<a id="2227" class="Keyword">import</a> <a id="2234" href="tmp.ADA.Multisig.html" class="Module">tmp.ADA.Multisig</a>
+
+<a id="2252" class="Comment">-- TODO: clean this up</a>
+<a id="2275" class="Keyword">import</a> <a id="2282" href="tmp.tmp.html" class="Module">tmp.tmp</a>
+<a id="2290" class="Keyword">import</a> <a id="2297" href="tmp.tmp2.html" class="Module">tmp.tmp2</a>
+
+
+<a id="2308" class="Comment">----------------------------------------------------------------------------------------------------</a>
+</pre></body></html>

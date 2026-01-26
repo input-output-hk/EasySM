@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>Main</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda"><a id="1" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="103" class="Comment">-- main coprogram</a>
+
+
+<a id="123" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="225" class="Symbol">{-#</a> <a id="229" class="Keyword">OPTIONS</a> <a id="237" class="Pragma">--guardedness</a> <a id="251" class="Pragma">--sized-types</a> <a id="265" class="Symbol">#-}</a>
+
+<a id="270" class="Keyword">module</a> <a id="277" href="Main.html" class="Module">Main</a> <a id="282" class="Keyword">where</a>
+
+<a id="289" class="Keyword">open</a> <a id="294" class="Keyword">import</a> <a id="301" href="Prelude.html" class="Module">Prelude</a>
+
+
+<a id="311" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="413" class="Keyword">module</a> <a id="Main-ADFA"></a><a id="420" href="Main.html#420" class="Module">Main-ADFA</a> <a id="430" class="Keyword">where</a>
+  <a id="438" class="Keyword">open</a> <a id="443" class="Keyword">import</a> <a id="450" href="ADFA.Multisig.html" class="Module">ADFA.Multisig</a>
+
+  <a id="467" class="Comment">-- TODO: clean this up</a>
+  <a id="492" class="Keyword">open</a> <a id="497" href="tmp.tmp.html#1470" class="Module">TODO</a>
+
+  <a id="Main-ADFA.balance"></a><a id="505" href="Main.html#505" class="Function">balance</a> <a id="513" class="Symbol">:</a> <a id="515" href="tmp.tmp.html#1483" class="Function">Value</a>
+  <a id="523" href="Main.html#505" class="Function">balance</a> <a id="531" class="Symbol">=</a> <a id="533" class="Number">100</a>
+
+  <a id="540" class="Comment">-- run n-of-m multi-signature contract (indexed by DFA)</a>
+  <a id="598" class="Keyword">open</a> <a id="603" href="ADFA.html#7162" class="Module">TUIInterpreter-ADFA</a> <a id="623" href="DFA.Multisig.html#3686" class="Function">MultiSig-DFA.tui</a> <a id="640" href="ADFA.Multisig.html#8080" class="Function">MultiSig-ADFA.tui</a> <a id="658" href="Main.html#505" class="Function">balance</a>
+
+  <a id="Main-ADFA.main"></a><a id="669" href="Main.html#669" class="Function">main</a> <a id="674" class="Symbol">:</a> <a id="676" href="IO.Base.html#3103" class="Function">Main</a>
+  <a id="683" href="Main.html#669" class="Function">main</a> <a id="688" class="Symbol">=</a> <a id="690" href="IO.Base.html#2794" class="Function">StdIO.run</a> <a id="700" href="IODA.html#5387" class="Function">handleTUI</a>
+
+
+<a id="712" class="Comment">----------------------------------------------------------------------------------------------------</a>
+
+<a id="814" class="Keyword">module</a> <a id="Main"></a><a id="821" href="Main.html#821" class="Module">Main</a> <a id="826" class="Keyword">where</a>
+  <a id="834" class="Keyword">open</a> <a id="839" class="Keyword">import</a> <a id="846" href="SADFA.Multisig.html" class="Module">SADFA.Multisig</a>
+
+  <a id="Main.balance"></a><a id="864" href="Main.html#864" class="Function">balance</a> <a id="872" class="Symbol">:</a> <a id="874" href="tmp.tmp2.html#655" class="Datatype">Amount</a> <a id="881" href="tmp.tmp2.html#587" class="InductiveConstructor">ada</a>
+  <a id="887" href="Main.html#864" class="Function">balance</a> <a id="895" class="Symbol">=</a> <a id="897" href="tmp.tmp2.html#689" class="InductiveConstructor">ada</a> <a id="901" class="Number">1000000</a>
+
+  <a id="912" class="Comment">-- run n-of-m multi-signature contract (indexed by DFA)</a>
+  <a id="970" class="Keyword">open</a> <a id="975" href="SADFA.html#6964" class="Module">TUIInterpreter-SADFA</a> <a id="996" href="DFA.Multisig.html#3686" class="Function">MultiSig-DFA.tui</a> <a id="1013" class="Symbol">(</a><a id="1014" href="SADFA.Multisig.html#10321" class="Function">MultiSig-SADFA.tui</a> <a id="1033" href="Main.html#864" class="Function">balance</a><a id="1040" class="Symbol">)</a>
+
+  <a id="1045" class="Comment">-- auction contract (indexed by DFA)</a>
+  <a id="1084" class="Comment">-- open TUIInterpreter-SADFA Auction-DFA.tui Auction-SADFA.tui</a>
+
+  <a id="Main.main"></a><a id="1150" href="Main.html#1150" class="Function">main</a> <a id="1155" class="Symbol">:</a> <a id="1157" href="IO.Base.html#3103" class="Function">Main</a>
+  <a id="1164" href="Main.html#1150" class="Function">main</a> <a id="1169" class="Symbol">=</a> <a id="1171" href="IO.Base.html#2794" class="Function">StdIO.run</a> <a id="1181" href="IODA.html#5387" class="Function">handleTUI</a>
+
+
+<a id="1193" class="Comment">----------------------------------------------------------------------------------------------------</a>
+</pre></body></html>
