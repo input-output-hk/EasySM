@@ -10,5 +10,4 @@ This is work in progress.
 
 ## Example animation
 
-videos/MultiSigAnimation.mov
-	
+![](videos/MultiSigAnimation.mov)
