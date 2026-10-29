@@ -1,5 +1,7 @@
 # EasySM Animation System
 
+This is an Xcode-based SwiftUI-app for macOS.
+
 ## JSON Specifications
 
 The animation engine is driven by two JSON files: an **automaton configuration** that defines the structure and layout of the state machine, and an **animation plan** that defines the sequence of steps to animate.
