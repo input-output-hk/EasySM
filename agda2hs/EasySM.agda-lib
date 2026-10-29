@@ -1,0 +1,4 @@
+name: EasySM
+include: agda
+depend: standard-library
+        agda2hs-base

@@ -1,0 +1,85 @@
+{
+  "contractName": "MultiSig Contract",
+  "nodes": [
+    {
+      "id": "holding",
+      "name": "Holding",
+      "gridPosition": { "row": 0, "column": 0 }
+    },
+    {
+      "id": "collecting",
+      "name": "Collecting",
+      "gridPosition": { "row": 0, "column": 1 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "propose",
+      "label": "Propose (v, p, d)",
+      "source": "holding",
+      "target": "collecting",
+      "bezier": {
+        "p0": { "x": 360, "y": 230 },
+        "c1": { "x": 470, "y": 100 },
+        "c2": { "x": 530, "y": 100 },
+        "p1": { "x": 640, "y": 230 }
+      },
+      "labelPosition": {
+        "t": 0.5,
+        "offset": { "width": 0, "height": -26 }
+      }
+    },
+    {
+      "id": "pay",
+      "label": "Pay",
+      "source": "collecting",
+      "target": "holding",
+      "bezier": {
+        "p0": { "x": 640, "y": 290 },
+        "c1": { "x": 530, "y": 400 },
+        "c2": { "x": 470, "y": 400 },
+        "p1": { "x": 360, "y": 290 }
+      },
+      "labelPosition": {
+        "t": 0.5,
+        "offset": { "width": 0, "height": 26 }
+      }
+    },
+    {
+      "id": "cancel",
+      "label": "Cancel",
+      "source": "collecting",
+      "target": "holding",
+      "bezier": {
+        "p0": { "x": 630, "y": 310 },
+        "c1": { "x": 550, "y": 460 },
+        "c2": { "x": 450, "y": 460 },
+        "p1": { "x": 370, "y": 310 }
+      },
+      "labelPosition": {
+        "t": 0.5,
+        "offset": { "width": 0, "height": 26 }
+      }
+    },
+    {
+      "id": "add",
+      "label": "Add key",
+      "source": "collecting",
+      "target": "collecting",
+      "bezier": {
+        "p0": { "x": 860, "y": 200 },
+        "c1": { "x": 970, "y": 80 },
+        "c2": { "x": 740, "y": 80 },
+        "p1": { "x": 750, "y": 200 }
+      },
+      "labelPosition": {
+        "t": 0.5,
+        "offset": { "width": 42, "height": -10 }
+      }
+    }
+  ],
+  "designSize": { "width": 1000, "height": 520 },
+  "gridRows": 1,
+  "gridColumns": 2,
+  "nodeSize": { "width": 220, "height": 120 }
+}

@@ -1,0 +1,20 @@
+{
+  "initialState": "holding",
+  "initialValue": "∅",
+  "steps": [
+    { "type": "action", "edge": "propose", "label": "Propose", "valueText": "(42, 7, 30)" },
+    { "type": "state",  "node": "collecting", "valueText": "(42, 7, 30, [])" },
+    { "type": "action", "edge": "add", "label": "Add", "valueText": "\"a\"" },
+    { "type": "state",  "node": "collecting", "valueText": "(42, 7, 30, [\"a\"])" },
+    { "type": "action", "edge": "add", "label": "Add", "valueText": "\"b\"" },
+    { "type": "state",  "node": "collecting", "valueText": "(42, 7, 30, [\"a\", \"b\"])" },
+    { "type": "action", "edge": "pay", "label": "Pay", "valueText": null },
+    { "type": "state",  "node": "holding", "valueText": "∅" },
+    { "type": "action", "edge": "propose", "label": "Propose", "valueText": "(100, 3, 60)" },
+    { "type": "state",  "node": "collecting", "valueText": "(100, 3, 60, [])" },
+    { "type": "action", "edge": "add", "label": "Add", "valueText": "\"x\"" },
+    { "type": "state",  "node": "collecting", "valueText": "(100, 3, 60, [\"x\"])" },
+    { "type": "action", "edge": "cancel", "label": "Cancel", "valueText": null },
+    { "type": "state",  "node": "holding", "valueText": "∅" }
+  ]
+}

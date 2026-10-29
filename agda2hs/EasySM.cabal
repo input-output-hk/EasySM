@@ -1,0 +1,57 @@
+cabal-version:      3.12
+name:               EasySM
+version:            0.1.0.0
+synopsis:           "Combined Agda and Haskell harness for EasySM"
+license:            Apache-2.0
+author:             Manuel M. T. Chakravarty
+maintainer:         Manuel M. T. Chakravarty
+build-type:         Custom
+
+extra-source-files: agda/Functional/Augmented.agda,
+                    agda/Functional/DFA.agda,
+                    agda/Functional/EasySM.agda,
+                    agda/Relational/Augmented.agda,
+                    agda/Relational/DFA.agda,
+                    agda/Relational/EasySM.agda,
+                    agda/Correspondence/Augmented.agda,
+                    agda/Correspondence/DFA.agda,
+                    agda/Correspondence/EasySM.agda,
+                    agda/MultiSig.agda,
+                    agda/Traces.agda
+
+custom-setup
+  setup-depends:
+      base    >= 4.18 && < 5
+    , Cabal   >= 3.0 && < 4
+    , process > 1.6
+    
+common warnings
+    ghc-options: -Wall
+    default-extensions: DuplicateRecordFields RankNTypes
+
+library
+    import:           warnings
+    exposed-modules:  Engine
+                    , Animation
+                    , EasySM.Functional.DFA
+                    , EasySM.Functional.Augmented
+                    , EasySM.Functional.EasySM
+                    , EasySM.Examples.Functional.MultiSig
+    build-depends:    base ^>=4.22.0.0
+                    , aeson
+                    , bytestring
+                    , text
+    hs-source-dirs:   src, agda
+    default-language: Haskell2010
+
+test-suite EasySM-test
+    import:           warnings
+    main-is:          Main.hs
+    default-language: Haskell2010
+--    other-modules:    
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+
+    build-depends:
+        base ^>=4.22.0.0,
+        EasySM
